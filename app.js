@@ -1,15 +1,20 @@
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
 const authroute = require('./routes/auth')
 const userroute = require('./routes/user')
-
+const options = require('./config/swagger.options')
+const swaggerSpec = swaggerJSDoc(options)
 const app = express()
+
 app.use(helmet())
 app.use(cors())
 app.options('*', cors())
 app.use(express.json())
 app.use('/v1', authroute)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/v1', userroute)
 
 module.exports = app

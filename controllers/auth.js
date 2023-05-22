@@ -14,15 +14,14 @@ const register = async (req, res) => {
   const checkEmail = await User.findOne({ where: { email: req.body.email } })
   if (checkEmail) return res.status(httpStatus.CONFLICT).send('Email sudah dipakai!')
   //
-  const checkUsername = await User.findOne({ where: { username: req.body.username } })
-  if (checkUsername) return res.status(httpStatus.CONFLICT).send('Username sudah dipakai!')
+  // const checkUsername = await User.findOne({ where: { username: req.body.username } })
+  // if (checkUsername) return res.status(httpStatus.CONFLICT).send('Username sudah dipakai!')
   // hash password
   const hashPassword = await bcrypt.hash(req.body.password, 10)
   // buat data pengguna
   const user = {
     id: nanoid.nanoid(),
     name: req.body.name,
-    username: req.body.username,
     email: req.body.email,
     password: hashPassword,
     createdAt: Date.now()
@@ -31,7 +30,7 @@ const register = async (req, res) => {
   User.create(user).then(() => {
     res.status(httpStatus.CREATED).send({
       status: 'success',
-      message: 'User berhasil ditambahkan'
+      message: 'Data pengguna baru berhasil ditambahkan'
     })
   }).catch((err) => {
     res.status(httpStatus.BAD_REQUEST).send(err)
@@ -39,17 +38,22 @@ const register = async (req, res) => {
 }
 // controller login
 const login = async (req, res) => {
-  const user = await User.findOne({ where: { username: req.body.username } })
-  if (!user || !user.email) return res.status(httpStatus.CONFLICT).send('Username atau email salah!')
+  const user = await User.findOne({ where: { email: req.body.email } })
+  if (!user.email) return res.status(httpStatus.CONFLICT).send('Email atau password salah!')
   // cek pass
   const checkPass = bcrypt.compare(req.body.password, user.password)
-  if (!checkPass) return res.status(httpStatus.CONFLICT).send('Username atau password salah!')
+  if (!checkPass) return res.status(httpStatus.CONFLICT).send('Email atau password salah!')
   const authtoken = token(user)
   user.token = authtoken
   res.header('auth-token', authtoken).status(httpStatus.OK).send({
     status: 'success',
     message: 'Login berhasil',
-    token: user.token
+    data: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      token: user.token
+    }
   })
 }
 module.exports = { register, login }
