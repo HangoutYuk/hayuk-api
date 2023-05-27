@@ -4,7 +4,9 @@ const validate = require('../middlewares/validation')
 const schema = require('../utils/authvalidation')
 const { getUser, getUserId, updateUser, deleteUser } = require('../controllers/user')
 
+// get all user
 router.get('/user', verifytoken, getUser)
+
 // by user id
 router.route('/user/:id')
   .get(verifytoken, getUserId)
