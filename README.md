@@ -2,5 +2,5 @@
 ## How to run
 For development use :
 ```
-node run dev
+npm run dev
 ```
