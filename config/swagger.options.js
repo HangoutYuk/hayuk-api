@@ -8,9 +8,13 @@ const options = {
       version: '1.0.0'
     },
     servers: [
+      // {
+      //   url: 'https://backend-test-dot-curious-furnace-381420.uc.r.appspot.com/v1',
+      //   description: 'Main Backend'
+      // },
       {
-        url: 'https://backend-test-dot-curious-furnace-381420.uc.r.appspot.com/v1',
-        description: 'Main Backend'
+        url: 'https://backend-dev-dot-curious-furnace-381420.uc.r.appspot.com/v1',
+        description: 'Development Backend'
       }
     ],
     tags: [
@@ -21,6 +25,10 @@ const options = {
       {
         name: 'Manajemen Pengguna',
         description: 'Endpoint untuk manajemen pengguna'
+      },
+      {
+        name: 'ML Model Endpoint',
+        description: 'Endpoint untuk berkomunikasi dengan endpoint Model ML'
       }
     ],
     components: {
