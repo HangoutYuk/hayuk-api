@@ -9,7 +9,7 @@ module.exports = router
 // API DOCS
 /**
    * @swagger
-   * /ml-endpoint/:location:
+   * /ml-endpoint/{location}:
    *  get:
    *    security:
    *      - AuthToken: []
