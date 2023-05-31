@@ -9,11 +9,10 @@ const testAPI = async (req, res) => {
   try {
     const locdata = req.params.location
     const fetchdata = {
-      // eslint-disable-next-line no-array-constructor
-      result: {},
-      // eslint-disable-next-line no-array-constructor
-      photos: new Array(),
-      recommendData: {}
+      result: [],
+      photos: [],
+      recommendData: {},
+      tempReview: {}
     }
     let placeid
     // request rekomendasi lokasi ke Model Endpoint
@@ -51,9 +50,23 @@ const testAPI = async (req, res) => {
         .then(
           res => {
             let abOut
-            const place = Object.values(fetchdata.recommendData.places_name[i]).toString()
-            const placeNames = place
+            const ids = res.data.result.place_id
+            const placeNames = Object.values(fetchdata.recommendData.places_name[i]).toString()
+            const Rating = res.data.result.rating
+            const TotalReview = res.data.result.user_ratings_total
+            if (res.data.result.reviews !== undefined) {
+              const ReviewLength = res.data.result.reviews
+              fetchdata.tempReview[`place_${[i]}`] = []
+              for (const x in ReviewLength) {
+                fetchdata.tempReview[`place_${[i]}`].push({ id: x, author: res.data.result.reviews[x].author_name, rating: res.data.result.reviews[x].rating, text: res.data.result.reviews[x].text, time: res.data.result.reviews[x].relative_time_description })
+              }
+            } else {
+              fetchdata.tempReview.push(null)
+            }
+            const Category = res.data.result.types[0]
             const addRess = res.data.result.formatted_address
+            const lat = res.data.result.geometry.location.lat
+            const lng = res.data.result.geometry.location.lng
             if (res.data.result.editorial_summary !== undefined) {
               abOut = res.data.result.editorial_summary.overview || null
             } else {
@@ -62,7 +75,7 @@ const testAPI = async (req, res) => {
             const phOne = res.data.result.formatted_phone_number || null
             const phOto = fetchdata.photos[i].link
             const webSite = res.data.result.website || null
-            fetchdata.result[`place_${[i]}`] = [{ place_name: placeNames, address: addRess, about: abOut, phone: phOne, photo: phOto, website: webSite }]
+            fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng })
             // fetchdata.result.push(placeNames, address, about, phone, photo, website)
             // console.log(fetchdata.result)
           })
