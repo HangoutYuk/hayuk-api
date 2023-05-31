@@ -76,8 +76,6 @@ const testAPI = async (req, res) => {
             const phOto = fetchdata.photos[i].link
             const webSite = res.data.result.website || null
             fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng })
-            // fetchdata.result.push(placeNames, address, about, phone, photo, website)
-            // console.log(fetchdata.result)
           })
         .catch(
           err => {
