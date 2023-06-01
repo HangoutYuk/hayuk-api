@@ -147,4 +147,37 @@ router.route('/user/:id')
  *         description: User not found
  */
 
+/**
+ * @swagger
+ * /user/{id}:
+ *    post:
+ *      security:
+ *        - AuthToken: []
+ *      tags:
+ *        - Manajemen Pengguna
+ *      summary: Upload foto profil pengguna ke google cloud storage (png/jpg) dan ukuran tidak lebih dari 5 MB
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *            type: string
+ *          description: ID dari user
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              example:
+ *                {
+ *                  "status": "success",
+ *                  "message": "Foto profil berhasil ditambahkan!",
+ *                  "data": {
+ *                    "photoURL": "https://storage.googleapis.com/hayuk-storage-profile-photo/CAwo3o1RuwWJrM4eK3lVt%2FCAwo3o1RuwWJrM4eK3lVt-2023-06-01T11%3A21%3A47.342Z-current.jpg"
+ *                  }
+ *                }
+ *        '404':
+ *          description: User not found
+ */
+
 module.exports = router
