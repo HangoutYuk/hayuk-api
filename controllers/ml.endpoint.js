@@ -11,6 +11,7 @@ const testAPI = async (req, res) => {
     const fetchdata = {
       result: [],
       photos: [],
+      schedule: [],
       recommendData: {},
       tempReview: {}
     }
@@ -46,7 +47,7 @@ const testAPI = async (req, res) => {
           })
       // data detail dari lokasi
       await sleep(100)
-      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeid}&language=id&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo`)
+      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeid}&language=id&region=id&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo`)
         .then(
           res => {
             let abOut
@@ -64,6 +65,10 @@ const testAPI = async (req, res) => {
               fetchdata.tempReview.push(null)
             }
             const Category = res.data.result.types[0]
+            if (res.data.result.current_opening_hours !== undefined) {
+              const scheDule = res.data.result.current_opening_hours.weekday_text
+              fetchdata.schedule.push(scheDule)
+            }
             const addRess = res.data.result.formatted_address
             const lat = res.data.result.geometry.location.lat
             const lng = res.data.result.geometry.location.lng
@@ -75,7 +80,7 @@ const testAPI = async (req, res) => {
             const phOne = res.data.result.formatted_phone_number || null
             const phOto = fetchdata.photos[i].link
             const webSite = res.data.result.website || null
-            fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng })
+            fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, schedule: fetchdata.schedule[i], review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng })
           })
         .catch(
           err => {
