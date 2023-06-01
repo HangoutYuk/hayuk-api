@@ -155,7 +155,7 @@ router.route('/user/:id')
  *        - AuthToken: []
  *      tags:
  *        - Manajemen Pengguna
- *      summary: Upload foto profil pengguna ke google cloud storage (png/jpg) dan ukuran tidak lebih dari 5 MB
+ *      summary: Upload foto profil pengguna ke google cloud storage (png/jpg) dan ukuran tidak lebih dari 5 MB, respon yang didapat adalah link dari foto profil pengguna
  *      parameters:
  *        - in: path
  *          name: id
