@@ -163,6 +163,12 @@ router.route('/user/:id')
  *          schema:
  *            type: string
  *          description: ID dari user
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          multipart/form-data:
+ *            schema:
+ *              $ref: '#/components/schemas/uploadProfile'
  *      responses:
  *        '200':
  *          description: Success
