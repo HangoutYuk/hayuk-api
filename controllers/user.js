@@ -3,7 +3,7 @@ const User = require('../models/models')
 const bcrypt = require('bcrypt')
 const stream = require('stream')
 const { Storage } = require('@google-cloud/storage')
-const storage = new Storage({ keyFilename: 'gcs.json', projectId: 'curious-furnace-381420' })
+const storage = new Storage({ projectId: 'curious-furnace-381420' })
 // list semua user
 const getUser = async (req, res) => {
   try {
