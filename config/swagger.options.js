@@ -62,6 +62,15 @@ const options = {
               example: '12345678'
             }
           }
+        },
+        uploadProfile: {
+          type: 'object',
+          properties: {
+            photoFile: {
+              type: 'string',
+              format: 'binary'
+            }
+          }
         }
       },
       securitySchemes: {
