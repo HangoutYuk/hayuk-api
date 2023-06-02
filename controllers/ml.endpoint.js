@@ -11,7 +11,7 @@ const testAPI = async (req, res) => {
     const fetchdata = {
       result: [],
       photos: [],
-      schedule: [],
+      schedule: {},
       recommendData: {},
       tempReview: {}
     }
@@ -62,12 +62,15 @@ const testAPI = async (req, res) => {
                 fetchdata.tempReview[`place_${[i]}`].push({ id: x, author: res.data.result.reviews[x].author_name, rating: res.data.result.reviews[x].rating, text: res.data.result.reviews[x].text, time: res.data.result.reviews[x].relative_time_description })
               }
             } else {
-              fetchdata.tempReview.push(null)
+              fetchdata.tempReview[`place_${[i]}`] = [null]
             }
             const Category = res.data.result.types[0]
             if (res.data.result.current_opening_hours !== undefined) {
+              fetchdata.schedule[`place_${[i]}`] = []
               const scheDule = res.data.result.current_opening_hours.weekday_text
-              fetchdata.schedule.push(scheDule)
+              fetchdata.schedule[`place_${[i]}`].push(scheDule)
+            } else {
+              fetchdata.schedule[`place_${[i]}`] = [null]
             }
             const addRess = res.data.result.formatted_address
             const lat = res.data.result.geometry.location.lat
@@ -80,7 +83,7 @@ const testAPI = async (req, res) => {
             const phOne = res.data.result.formatted_phone_number || null
             const phOto = fetchdata.photos[i].link
             const webSite = res.data.result.website || null
-            fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, schedule: fetchdata.schedule[i], review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng })
+            fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, schedule: fetchdata.schedule[`place_${[i]}`], review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng })
           })
         .catch(
           err => {
