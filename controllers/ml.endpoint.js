@@ -83,7 +83,10 @@ const testAPI = async (req, res) => {
             const phOne = res.data.result.formatted_phone_number || null
             const phOto = fetchdata.photos[i].link
             const webSite = res.data.result.website || null
-            fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, schedule: fetchdata.schedule[`place_${[i]}`], review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng })
+            // buat URL
+            const coord = encodeURIComponent(`${lat},${lng}`)
+            const placeURL = `https://www.google.com/maps/search/?api=1&query=${coord}&query_place_id=${ids}`
+            fetchdata.result.push({ id: ids, photo: phOto, name: placeNames, category: Category, address: addRess, rating: Rating, totalReview: TotalReview, about: abOut, schedule: fetchdata.schedule[`place_${[i]}`], review: fetchdata.tempReview[`place_${[i]}`], phone: phOne, website: webSite, latitude: lat, longitude: lng, mapsURL: placeURL })
           })
         .catch(
           err => {
