@@ -143,7 +143,13 @@ const placesDetails = async (req, res) => {
             abOut = null
           }
           const phOne = res.data.result.formatted_phone_number || null
-          const phOto = res.data.result.photos[0].photo_reference
+          let links
+          if (res.data.result.photos !== undefined) {
+            links = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${res.data.result.photos[0].photo_reference}&sensor=false&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo`
+          } else {
+            links = null
+          }
+          const phOto = links
           const webSite = res.data.result.website || null
           // buat URL
           const coord = encodeURIComponent(`${lat},${lng}`)
