@@ -8,12 +8,8 @@ const options = {
       version: '1.0.0'
     },
     servers: [
-      // {
-      //   url: 'https://backend-test-dot-curious-furnace-381420.uc.r.appspot.com/v1',
-      //   description: 'Main Backend'
-      // },
       {
-        url: 'https://backend-dev-dot-curious-furnace-381420.uc.r.appspot.com/v1',
+        url: 'https://dev-dot-hayuk-project.et.r.appspot.com/v1',
         description: 'Development Backend'
       }
     ],
@@ -27,8 +23,8 @@ const options = {
         description: 'Endpoint untuk manajemen pengguna'
       },
       {
-        name: 'ML Model Endpoint',
-        description: 'Endpoint untuk berkomunikasi dengan endpoint Model ML'
+        name: 'Data Tempat',
+        description: 'Endpoint untuk mendapatkan data rekomendasi tempat dari ML Endpoint dan data detail dari suatu tempat'
       }
     ],
     components: {
