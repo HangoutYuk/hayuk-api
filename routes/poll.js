@@ -11,6 +11,8 @@ module.exports = router
  * @swagger
  * /poll/create:
  *   post:
+ *     security:
+*       - AuthToken: []
  *     tags:
  *       - Poll Website
  *     summary: membuat website polling
