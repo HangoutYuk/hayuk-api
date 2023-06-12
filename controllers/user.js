@@ -1,5 +1,5 @@
 const httpStatus = require('http-status')
-const User = require('../models/models')
+const { User } = require('../models/models')
 const bcrypt = require('bcrypt')
 const stream = require('stream')
 const { Storage } = require('@google-cloud/storage')

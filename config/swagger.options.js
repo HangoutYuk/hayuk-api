@@ -25,6 +25,10 @@ const options = {
       {
         name: 'Data Tempat',
         description: 'Endpoint untuk mendapatkan data rekomendasi tempat dari ML Endpoint dan data detail dari suatu tempat'
+      },
+      {
+        name: 'Poll Website',
+        description: 'Endpoint untuk membuat website polling dari tempat yang diinginkan'
       }
     ],
     components: {
@@ -65,6 +69,19 @@ const options = {
             photoFile: {
               type: 'string',
               format: 'binary'
+            }
+          }
+        },
+        poll: {
+          type: 'object',
+          properties: {
+            placeId: {
+              type: 'string',
+              example: 'ChIJCYpAP2DmaC4RshB4KjZqULA'
+            },
+            userId: {
+              type: 'string',
+              example: 'CAwo3o1RuwWJrM4eK3lVt'
             }
           }
         }

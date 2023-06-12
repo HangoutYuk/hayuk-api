@@ -1,14 +1,6 @@
 const axios = require('axios')
 const httpStatus = require('http-status')
-// /places
-// -id
-// -photo
-// -name
-// -category
-// -rating
-// -total review
-// -latitude
-// -longitude
+
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -83,22 +75,7 @@ const allPlaces = async (req, res) => {
     res.status(httpStatus.BAD_REQUEST).send(err)
   }
 }
-// /places/:id
-// -id
-// -photo
-// -name
-// -category
-// -rating
-// -totalreview
-// -latitude
-// -longitude
-// -address
-// -about
-// -schedule
-// -review
-// -phone
-// -website
-// -mapsURL
+
 const placesDetails = async (req, res) => {
   try {
     const placeId = req.params.placeId
