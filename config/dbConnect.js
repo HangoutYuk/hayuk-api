@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
     // host: config.db.host,
     dialect: 'mysql',
     dialectOptions: {
-      socketPath: process.env.INSTANCE_UNIX_SOCKET
+      socketPath: config.db.socket
     }
   })
 

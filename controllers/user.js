@@ -1,5 +1,5 @@
 const httpStatus = require('http-status')
-const { User } = require('../models/models')
+const { User, poll_list_table } = require('../models/models')
 const bcrypt = require('bcrypt')
 const stream = require('stream')
 const { Storage } = require('@google-cloud/storage')
@@ -91,6 +91,28 @@ const deleteUser = async (req, res) => {
       message: 'Data pengguna berhasil dihapus'
     })
   } catch (err) {
+    console.error(err)
+    res.status(httpStatus.BAD_REQUEST).send(err)
+  }
+}
+
+const getUserPoll = async (req, res) => {
+  try {
+    var poll_listing = []
+    const pollList = await poll_list_table.findAll({ where: { user_id: req.params.id } })
+    if (!pollList) return res.status(httpStatus.NOT_FOUND).send('Tidak ada daftar favorit')
+    pollList.forEach( (item) => {
+      if (item.poll_id) {
+        poll_listing.push({ poll_id: item.poll_id, photo_url: item.photo_url, place_name: item.place_name, place_rating: item.place_rating, place_total_review: item.place_total_review })
+      }
+    }) 
+    res.status(httpStatus.OK).send({
+      status: 'success',
+      message: 'Data tempat favorit berhasil didapatkan',
+      data: poll_listing
+    })
+  } catch(err) {
+    console.error(err)
     res.status(httpStatus.BAD_REQUEST).send(err)
   }
 }
@@ -131,8 +153,8 @@ const uploadPhoto = async (req, res) => {
       }
     })
   } catch (err) {
-    console.log('error upload')
+    console.erorr('error upload')
     res.status(httpStatus.BAD_REQUEST).send(err)
   }
 }
-module.exports = { getUserId, getUser, updateUser, deleteUser, uploadPhoto }
+module.exports = { getUserId, getUser, updateUser, deleteUser, uploadPhoto, getUserPoll }

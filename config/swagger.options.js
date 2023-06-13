@@ -11,6 +11,10 @@ const options = {
       {
         url: 'https://dev-dot-hayuk-project.et.r.appspot.com/v1',
         description: 'Development Backend'
+      },
+      {
+        url: 'http://localhost:8080/v1',
+        description: 'Local Backend'
       }
     ],
     tags: [

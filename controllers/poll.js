@@ -7,7 +7,7 @@ const pollCreate = async (req, res) => {
       const placeId = req.body.placeId
       const userId = req.body.userId
       const placesData = {}
-      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&language=id&region=id&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo`)
+      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&language=id&region=id&key=${process.env.MAPS_API_KEY}`)
         .then(
           res => {
             const Category = res.data.result.types[0]
@@ -22,7 +22,7 @@ const pollCreate = async (req, res) => {
             }
             let links
             if (res.data.result.photos !== undefined) {
-              links = `https://maps.googleapis.com/maps/api/place/photo?maxheight=480&photoreference=${res.data.result.photos[0].photo_reference}&sensor=false&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo`
+              links = `https://maps.googleapis.com/maps/api/place/photo?maxheight=480&photoreference=${res.data.result.photos[0].photo_reference}&sensor=false&key=${process.env.MAPS_API_KEY}`
             } else {
               links = null
             }
