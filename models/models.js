@@ -30,7 +30,7 @@ const User = sequelize.define('User', {
   }
 })
 const user_favorite_places = sequelize.define('user_favorite_place', {
-  id: {
+  no: {
     type: DataTypes.INTEGER,
     unique: true,
     primaryKey: true,
@@ -38,7 +38,7 @@ const user_favorite_places = sequelize.define('user_favorite_place', {
     allowNull: false
   },
   photo: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(400),
     allowNull: true
   },
   name: {
@@ -47,7 +47,7 @@ const user_favorite_places = sequelize.define('user_favorite_place', {
   },
   category: {
     type: DataTypes.STRING,
-    allowNull:false
+    allowNull: false
   },
   rating: {
     type: DataTypes.STRING,
@@ -114,7 +114,7 @@ poll_list_table.belongsTo(User, {
 })
 
 user_favorite_places.belongsTo(User, {
-  foreignKey: 'user_id',
+  foreignKey: 'id',
   targetKey: 'id'
 })
 

@@ -1,5 +1,5 @@
 const httpStatus = require('http-status')
-const { User, poll_list_table } = require('../models/models')
+const { User, poll_list_table, user_favorite_places } = require('../models/models')
 const bcrypt = require('bcrypt')
 const stream = require('stream')
 const { Storage } = require('@google-cloud/storage')
@@ -96,11 +96,25 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const deleteUserPoll = async (req, res) => {
+  try {
+    const pollList = await poll_list_table.findOne({ where: { user_id: req.params.id, poll_id: req.body.pollId } })
+    if (!pollList) return res.status(httpStatus.NOT_FOUND).send('Tidak ada data polling')
+    await poll_list_table.destroy({ where: { user_id: req.params.id, poll_id: req.body.pollId } })
+    res.status(httpStatus.OK).send({
+      status: 'success',
+      message: 'Polling berhasil dihapus'
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(httpStatus.BAD_REQUEST).send(err)
+  }
+}
 const getUserPoll = async (req, res) => {
   try {
-    var poll_listing = []
+    const poll_listing = []
     const pollList = await poll_list_table.findAll({ where: { user_id: req.params.id } })
-    if (!pollList) return res.status(httpStatus.NOT_FOUND).send('Tidak ada daftar favorit')
+    if (!pollList) return res.status(httpStatus.NOT_FOUND).send('Tidak ada daftar polling')
     pollList.forEach( (item) => {
       if (item.poll_id) {
         poll_listing.push({ poll_id: item.poll_id, photo_url: item.photo_url, place_name: item.place_name, place_rating: item.place_rating, place_total_review: item.place_total_review })
@@ -111,11 +125,75 @@ const getUserPoll = async (req, res) => {
       message: 'Data tempat favorit berhasil didapatkan',
       data: poll_listing
     })
-  } catch(err) {
+  } catch (err) {
     console.error(err)
     res.status(httpStatus.BAD_REQUEST).send(err)
   }
 }
+// const deleteUserFavorites = async (req, res) => {
+//   try {
+//     const favoritesPlace = await user_favorite_places.findOne({ where: { name: req.params.name } })
+//     if (!favoritesPlace) return res.status(httpStatus.NOT_FOUND).send('Data tempat favorit tidak ditemukan')
+//     await User.destroy({ where: { name: req.params.name } })
+//     res.status(httpStatus.OK).send({
+//       status: 'success',
+//       message: 'Data pengguna berhasil dihapus'
+//     })
+//   } catch (err) {
+//     console.error(err)
+//     res.status(httpStatus.BAD_REQUEST).send(err)
+//   }
+// }
+// const uploadUserFavorites = async (req, res) => {
+//   try {
+//     const placeData = {
+//       id: req.params.id,
+//       name: req.body.name,
+//       category: req.body.category,
+//       rating: req.body.rating,
+//       totalReview: req.body.totalReview,
+//       latitude: req.body.latitude,
+//       longitude: req.body.longitude,
+//       createdAt: DateTime.now().setZone('Asia/Jakarta').toISO()
+//     }
+//     user_favorite_places.create(placeData)
+//       .then(() => {
+//         res.status(httpStatus.CREATED).send({
+//           status: 'success',
+//           message: 'Data tempat favorit berhasil ditambahkan'
+//         })
+//       })
+//       .catch(err => {
+//         console.error(err)
+//         res.status(httpStatus.BAD_REQUEST).send(err)
+//       })
+//   } catch (err) {
+//     console.error(err)
+//     res.status(httpStatus.BAD_REQUEST).send(err)
+//   }
+// }
+// // get user favorite places
+// const getUserFavorites = async (req, res) => {
+//   try {
+//     const poll_listing = []
+//     const favoritesList = await user_favorite_places.findAll({ where: { id: req.params.id } })
+//     if (!favoritesList) return res.status(httpStatus.NOT_FOUND).send('Tidak ada daftar favorit')
+//     favoritesList.forEach( (item) => {
+//       if (item.id) {
+//         poll_listing.push({ id: item.id, photo: item.photo, name: item.name, category: item.category, rating: item.rating, totalReview: item.totalReview, latitude: item.latitude, longitude: item.longitude })
+//       }
+//     })
+//     console.log(poll_listing)
+//     res.status(httpStatus.OK).send({
+//       status: 'success',
+//       message: 'Data tempat favorit berhasil didapatkan',
+//       data: poll_listing
+//     })
+//   } catch (err) {
+//     console.error(err)
+//     res.status(httpStatus.BAD_REQUEST).send(err)
+//   }
+// }
 
 // upload photo profile
 const uploadPhoto = async (req, res) => {
@@ -157,4 +235,4 @@ const uploadPhoto = async (req, res) => {
     res.status(httpStatus.BAD_REQUEST).send(err)
   }
 }
-module.exports = { getUserId, getUser, updateUser, deleteUser, uploadPhoto, getUserPoll }
+module.exports = { getUserId, getUser, updateUser, deleteUser, uploadPhoto, getUserPoll, deleteUserPoll }

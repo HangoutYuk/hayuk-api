@@ -76,6 +76,15 @@ const options = {
             }
           }
         },
+        pollDelete: {
+          type: 'object',
+          properties: {
+            pollId: {
+              type: 'string',
+              example: 'ChIJCYpAP2DmaC4RshB4KjZqULA'
+            }
+          }
+        },
         poll: {
           type: 'object',
           properties: {

@@ -10,7 +10,8 @@ const sequelize = new Sequelize(
     dialect: 'mysql',
     dialectOptions: {
       socketPath: config.db.socket
-    }
+    },
+    timezone: '+07:00'
   })
 
 module.exports = sequelize

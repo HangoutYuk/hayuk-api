@@ -23,6 +23,7 @@ const register = async (req, res) => {
     id: nanoid.nanoid(),
     name: req.body.name,
     email: req.body.email,
+    photo_url: 'https://storage.googleapis.com/hayuk-storage-profile-photo/logo.jpg',
     password: hashPassword,
     createdAt: Date.now()
   }

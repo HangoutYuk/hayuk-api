@@ -2,7 +2,7 @@ const router = require('express').Router()
 const verifytoken = require('../middlewares/verifytoken')
 const validate = require('../middlewares/validation')
 const schema = require('../utils/authvalidation')
-const { getUser, getUserId, updateUser, deleteUser, uploadPhoto, getUserPoll } = require('../controllers/user')
+const { getUser, getUserId, updateUser, deleteUser, uploadPhoto, getUserPoll, deleteUserPoll } = require('../controllers/user')
 
 // get all user
 router.get('/user', verifytoken, getUser)
@@ -15,9 +15,14 @@ router.route('/user/:id')
   .delete(verifytoken, deleteUser)
 
 // get user favorite places
-
+// router.route('/user/:id/favorites')
+//   .get(verifytoken, getUserFavorites)
+//   .post(verifytoken, uploadUserFavorites)
+//   .delete(verifytoken, deleteUserFavorites)
 // get user user created polls
-router.get('/user/:id/polls', verifytoken, getUserPoll)
+router.route('/user/:id/polls')
+  .get(verifytoken, getUserPoll)
+  .delete(verifytoken, deleteUserPoll)
 /**
    * @swagger
    * /user:
@@ -215,23 +220,59 @@ router.get('/user/:id/polls', verifytoken, getUserPoll)
    *            example:
    *              {
    *                "status": "success",
-   *                "message": "Daftar favorit pengguna berhasil didapatkan",
+   *                "message": "Daftar polling berhasil didapatkan",
    *                "data": [
    *                    {
-                            "poll_id": "ArNXCeVrNe4880pmfanO",
-                            "photo_url": "https://maps.googleapis.com/maps/api/place/photo?maxheight=480&photoreference=AZose0lnvxUdwxm26Op4zKijrcDe9-EAUmBnsKBcYw-2GKRZHZj9QvqHNsZjaREF_6bUNzBHMp4t_w39JkoTSJi39yjJtuyHImrFD3EVcdG4q3EAWBjbfdvG0msDLG0tqdvm-Qr6mjzHi5M7aL64feLiWINlviP1MrwbB7FOBjHVGD7BYujW&sensor=false&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo",
-                            "place_name": "Starbucks Coffee Empire XXI",
-                            "place_rating": "4.6",
-                            "place_total_review": "1280"
-                        },
-                        {
-                            "poll_id": "ExqryD-W1qRmNg4MPtxI",
-                            "photo_url": "https://maps.googleapis.com/maps/api/place/photo?maxheight=480&photoreference=AZose0k-BOfpwHuRsMNO4x48wJTQ1I_TmZyay08VWwW6u5zsC-Z48NvKKRlRyVFQ5xg9p177Ikm2LoXIJocKj9idhRNS6Caxy1M1ytJovtbtnCXPGipk4c-SieJpmfcIy94xQPwoNZPYbx27AM3zpa6AdKsT9VBZ-DZzbcXaDVRW3L0T3ge1&sensor=false&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo",
-                            "place_name": "Bliss Pool and Lounge",
-                            "place_rating": "4.6",
-                            "place_total_review": "1318"
-                        }
+   *                         "poll_id": "ArNXCeVrNe4880pmfanO",
+   *                         "photo_url": "https://maps.googleapis.com/maps/api/place/photo?maxheight=480&photoreference=AZose0lnvxUdwxm26Op4zKijrcDe9-EAUmBnsKBcYw-2GKRZHZj9QvqHNsZjaREF_6bUNzBHMp4t_w39JkoTSJi39yjJtuyHImrFD3EVcdG4q3EAWBjbfdvG0msDLG0tqdvm-Qr6mjzHi5M7aL64feLiWINlviP1MrwbB7FOBjHVGD7BYujW&sensor=false&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo",
+   *                         "place_name": "Starbucks Coffee Empire XXI",
+   *                         "place_rating": "4.6",
+   *                         "place_total_review": "1280"
+   *                     },
+   *                     {
+   *                         "poll_id": "ExqryD-W1qRmNg4MPtxI",
+   *                         "photo_url": "https://maps.googleapis.com/maps/api/place/photo?maxheight=480&photoreference=AZose0k-BOfpwHuRsMNO4x48wJTQ1I_TmZyay08VWwW6u5zsC-Z48NvKKRlRyVFQ5xg9p177Ikm2LoXIJocKj9idhRNS6Caxy1M1ytJovtbtnCXPGipk4c-SieJpmfcIy94xQPwoNZPYbx27AM3zpa6AdKsT9VBZ-DZzbcXaDVRW3L0T3ge1&sensor=false&key=AIzaSyClh1AGWGGuXQM38uvxoxwjvdRNNP3h0mo",
+   *                         "place_name": "Bliss Pool and Lounge",
+   *                         "place_rating": "4.6",
+   *                         "place_total_review": "1318"
+   *                     }
    *                ]
+   *              }
+   *      '400':
+   *        description: Bad Request
+   */
+
+/**
+   * @swagger
+   * /user/{id}/polls:
+   *  delete:
+   *    security:
+   *      - AuthToken: []
+   *    tags:
+   *      - Manajemen Pengguna
+   *    summary: Hapus polling yang dibuat pengguna
+   *    requestBody:
+   *        required: true
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/pollDelete'
+   *    parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: ID dari user
+   *    responses:
+   *      '200':
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            example:
+   *              {
+   *                "status": "success",
+   *                "message": "Polling berhasil dihapus",
    *              }
    *      '400':
    *        description: Bad Request
