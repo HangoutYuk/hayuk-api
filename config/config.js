@@ -11,7 +11,8 @@ const config = {
   apiKey: process.env.MAPS_API_KEY,
   mainServer: process.env.MAIN_SERVER,
   devServer: process.env.DEV_SERVER,
-  localServer: process.env.LOCAL_SERVER
+  localServer: process.env.LOCAL_SERVER,
+  recAPI: process.env.RECOMMENDER_API
 }
 
 module.exports = config

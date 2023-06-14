@@ -29,43 +29,6 @@ const User = sequelize.define('User', {
     allowNull: false
   }
 })
-const user_favorite_places = sequelize.define('user_favorite_place', {
-  no: {
-    type: DataTypes.INTEGER,
-    unique: true,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false
-  },
-  photo: {
-    type: DataTypes.STRING(400),
-    allowNull: true
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  category: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  rating: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  totalReview: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  latitude: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  longitude: {
-    type: DataTypes.STRING,
-    allowNull: true
-  }
-})
 
 const poll_list_table = sequelize.define('poll_list_table', {
   poll_id: {
@@ -113,10 +76,5 @@ poll_list_table.belongsTo(User, {
   targetKey: 'id'
 })
 
-user_favorite_places.belongsTo(User, {
-  foreignKey: 'id',
-  targetKey: 'id'
-})
 
-
-module.exports = { User, poll_list_table, user_favorite_places }
+module.exports = { User, poll_list_table }

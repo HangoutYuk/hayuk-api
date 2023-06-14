@@ -1,0 +1,13 @@
+runtime: nodejs18
+service: dev
+env_variables:
+  INSTANCE_UNIX_SOCKET:
+  DB_USER:
+  DB_PASS:
+  DB_NAME:
+  TOKEN_SECRET:
+  PROFILE_BUCKET:
+  PORT: 8080
+  MAPS_API_KEY:
+  RECOMMENDER_API:
+  DEV_SERVER:

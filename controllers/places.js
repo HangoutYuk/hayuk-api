@@ -18,7 +18,7 @@ const allPlaces = async (req, res) => {
     }
     let placeid
     // request rekomendasi lokasi ke Model Endpoint
-    await axios.get(`https://recommender-api-ghsbboa5oa-as.a.run.app/recommend/${locdata}`)
+    await axios.get(`${config.recAPI}${locdata}`)
       .then(
         res => {
           fetchdata.recommendData = res.data
