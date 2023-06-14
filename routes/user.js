@@ -14,11 +14,6 @@ router.route('/user/:id')
   .patch(verifytoken, validate(schema.updateUser), updateUser)
   .delete(verifytoken, deleteUser)
 
-// get user favorite places
-// router.route('/user/:id/favorites')
-//   .get(verifytoken, getUserFavorites)
-//   .post(verifytoken, uploadUserFavorites)
-//   .delete(verifytoken, deleteUserFavorites)
 // get user user created polls
 router.route('/user/:id/polls')
   .get(verifytoken, getUserPoll)

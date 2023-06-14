@@ -6,11 +6,11 @@ const sequelize = new Sequelize(
   config.db.user,
   config.db.password,
   {
-    // host: config.db.host,
+    host: config.db.host,
     dialect: 'mysql',
-    dialectOptions: {
-      socketPath: config.db.socket
-    },
+    // dialectOptions: {
+    //   socketPath: config.db.socket
+    // },
     timezone: '+07:00'
   })
 

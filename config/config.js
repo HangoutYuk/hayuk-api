@@ -7,7 +7,11 @@ const config = {
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     socket: process.env.INSTANCE_UNIX_SOCKET
-  }
+  },
+  apiKey: process.env.MAPS_API_KEY,
+  mainServer: process.env.MAIN_SERVER,
+  devServer: process.env.DEV_SERVER,
+  localServer: process.env.LOCAL_SERVER
 }
 
 module.exports = config

@@ -1,5 +1,5 @@
 const httpStatus = require('http-status')
-const { User, poll_list_table, user_favorite_places } = require('../models/models')
+const { User, poll_list_table } = require('../models/models')
 const bcrypt = require('bcrypt')
 const stream = require('stream')
 const { Storage } = require('@google-cloud/storage')
@@ -130,70 +130,6 @@ const getUserPoll = async (req, res) => {
     res.status(httpStatus.BAD_REQUEST).send(err)
   }
 }
-// const deleteUserFavorites = async (req, res) => {
-//   try {
-//     const favoritesPlace = await user_favorite_places.findOne({ where: { name: req.params.name } })
-//     if (!favoritesPlace) return res.status(httpStatus.NOT_FOUND).send('Data tempat favorit tidak ditemukan')
-//     await User.destroy({ where: { name: req.params.name } })
-//     res.status(httpStatus.OK).send({
-//       status: 'success',
-//       message: 'Data pengguna berhasil dihapus'
-//     })
-//   } catch (err) {
-//     console.error(err)
-//     res.status(httpStatus.BAD_REQUEST).send(err)
-//   }
-// }
-// const uploadUserFavorites = async (req, res) => {
-//   try {
-//     const placeData = {
-//       id: req.params.id,
-//       name: req.body.name,
-//       category: req.body.category,
-//       rating: req.body.rating,
-//       totalReview: req.body.totalReview,
-//       latitude: req.body.latitude,
-//       longitude: req.body.longitude,
-//       createdAt: DateTime.now().setZone('Asia/Jakarta').toISO()
-//     }
-//     user_favorite_places.create(placeData)
-//       .then(() => {
-//         res.status(httpStatus.CREATED).send({
-//           status: 'success',
-//           message: 'Data tempat favorit berhasil ditambahkan'
-//         })
-//       })
-//       .catch(err => {
-//         console.error(err)
-//         res.status(httpStatus.BAD_REQUEST).send(err)
-//       })
-//   } catch (err) {
-//     console.error(err)
-//     res.status(httpStatus.BAD_REQUEST).send(err)
-//   }
-// }
-// // get user favorite places
-// const getUserFavorites = async (req, res) => {
-//   try {
-//     const poll_listing = []
-//     const favoritesList = await user_favorite_places.findAll({ where: { id: req.params.id } })
-//     if (!favoritesList) return res.status(httpStatus.NOT_FOUND).send('Tidak ada daftar favorit')
-//     favoritesList.forEach( (item) => {
-//       if (item.id) {
-//         poll_listing.push({ id: item.id, photo: item.photo, name: item.name, category: item.category, rating: item.rating, totalReview: item.totalReview, latitude: item.latitude, longitude: item.longitude })
-//       }
-//     })
-//     console.log(poll_listing)
-//     res.status(httpStatus.OK).send({
-//       status: 'success',
-//       message: 'Data tempat favorit berhasil didapatkan',
-//       data: poll_listing
-//     })
-//   } catch (err) {
-//     console.error(err)
-//     res.status(httpStatus.BAD_REQUEST).send(err)
-//   }
-// }
 
 // upload photo profile
 const uploadPhoto = async (req, res) => {

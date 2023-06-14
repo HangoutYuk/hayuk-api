@@ -1,9 +1,11 @@
 const axios = require('axios')
 const httpStatus = require('http-status')
+const config = require('../config/config')
 
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+
 const allPlaces = async (req, res) => {
   try {
     const locdata = req.params.location
@@ -29,11 +31,11 @@ const allPlaces = async (req, res) => {
     for (const i in fetchdata.recommendData.places_id) {
       placeid = Object.values(fetchdata.recommendData.places_id[i]).toString()
       // await sleep(10)
-      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeid}&fields=photo%2Cname&key=${process.env.MAPS_API_KEY}`)
+      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeid}&fields=photo%2Cname&key=${config.apiKey}`)
         .then(
           res => {
             if (res.data.result.photos !== undefined) {
-              const links = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${res.data.result.photos[0].photo_reference}&sensor=false&key=${process.env.MAPS_API_KEY}`
+              const links = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${res.data.result.photos[0].photo_reference}&sensor=false&key=${config.apiKey}`
               console.log(i)
               fetchdata.photos.push({ link: links })
             } else {
@@ -46,7 +48,7 @@ const allPlaces = async (req, res) => {
           })
       // data detail dari lokasi
       await sleep(50)
-      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeid}&language=id&region=id&key=${process.env.MAPS_API_KEY}`)
+      await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeid}&language=id&region=id&key=${config.apiKey}`)
         .then(
           res => {
             const ids = res.data.result.place_id
@@ -86,7 +88,7 @@ const placesDetails = async (req, res) => {
       recommendData: {},
       tempReview: {}
     }
-    await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&language=id&region=id&key=${process.env.MAPS_API_KEY}`)
+    await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&language=id&region=id&key=${config.apiKey}`)
       .then(
         res => {
           let abOut
@@ -122,7 +124,7 @@ const placesDetails = async (req, res) => {
           const phOne = res.data.result.formatted_phone_number || null
           let links
           if (res.data.result.photos !== undefined) {
-            links = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${res.data.result.photos[0].photo_reference}&sensor=false&key=${process.env.MAPS_API_KEY}`
+            links = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${res.data.result.photos[0].photo_reference}&sensor=false&key=${config.apiKey}`
           } else {
             links = null
           }

@@ -1,19 +1,24 @@
+const config = require('../config/config')
 const options = {
   failOnErrors: true,
   definition: {
     openapi: '3.0.3',
     info: {
-      title: 'Dokumentasi API HaYuk!',
-      description: 'Dokumentasi lengkap mengenai semua API yang ada',
+      title: 'Dokumentasi API HangoutYuk!',
+      description: "Dokumentasi lengkap API dari aplikasi HangoutYuk!\n- Login dahulu untuk mendapatkan auth token JWT\n- Salin token dari response yang didapat, masukan pada menu Authorize\n- Endpoint sudah dapat diakses",
       version: '1.0.0'
     },
     servers: [
       {
-        url: 'https://dev-dot-hayuk-project.et.r.appspot.com/v1',
+        url: `${config.mainServer}`,
+        description: 'Main Backend'
+      },
+      {
+        url: `${config.devServer}`,
         description: 'Development Backend'
       },
       {
-        url: 'http://localhost:8080/v1',
+        url: `${config.localServer}`,
         description: 'Local Backend'
       }
     ],
