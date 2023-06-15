@@ -11,3 +11,7 @@ env_variables:
   MAPS_API_KEY:
   RECOMMENDER_API:
   DEV_SERVER:
+  MAIN_SERVER:
+  LOCAL_SERVER:
+  ML_SERVER:
+  
