@@ -13,9 +13,6 @@ const register = async (req, res) => {
   // cek apakah email dan username sudah terpakai
   const checkEmail = await User.findOne({ where: { email: req.body.email } })
   if (checkEmail) return res.status(httpStatus.CONFLICT).send('Email sudah dipakai!')
-  //
-  // const checkUsername = await User.findOne({ where: { username: req.body.username } })
-  // if (checkUsername) return res.status(httpStatus.CONFLICT).send('Username sudah dipakai!')
   // hash password
   const hashPassword = await bcrypt.hash(req.body.password, 10)
   // buat data pengguna

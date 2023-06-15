@@ -5,7 +5,7 @@
 
 
 ## Cloud Diagram 
-Below are the cloud architecture diagram used for HangoutYuk 
+Image below are the cloud architecture diagram used for HangoutYuk 
 
 <img src="https://raw.githubusercontent.com/HangoutYuk/.github/main/assets/cloud_diagram_black.png"/>
 

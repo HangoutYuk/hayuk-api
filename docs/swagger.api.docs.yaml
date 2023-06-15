@@ -4,11 +4,10 @@ info:
   title: HangoutYuk API - OpenAPI 3.0
   description: |-
     Dokumentasi lengkap API dari aplikasi HangoutYuk!
-    - Pilih server backend sesuai kebutuhan
+    - Pilih server backend yang sesuai
     - Login dahulu untuk mendapatkan auth token JWT
     - Salin token dari response yang didapat, masukan pada menu Authorize
-    - Endpoint sudah dapat diakses
-    Khusus untuk Recommender API ubah server manjadi  ML Recommender Endpoint
+    - Coba akses endpoint
   license:
     name: MIT
     url: https://mit-license.org/
@@ -23,8 +22,6 @@ servers:
   description: Dev Backend
 - url: http://localhost:8080/v1
   description: Local Backend
-- url: https://hayuk-recommender-api-dae6gnqlya-et.a.run.app/
-  description: ML Recommender Endpoint
 tags:
 - name: Autentikasi
   description: Endpoint untuk Autentikasi (Login & Register)
@@ -35,8 +32,6 @@ tags:
     dan data detail dari suatu tempat
 - name: Poll Website
   description: Endpoint untuk membuat website polling dari tempat yang diinginkan
-- name: Recommender Endpoint
-  description: Endpoint untuk mengetes ML Recommender API
 paths:
   /register:
    post:
@@ -471,38 +466,6 @@ paths:
                     }
                  ]
             }
-      '400':
-        description: Bad Request
-  /recommend/{loc_user}:
-   get:
-    tags:
-      - Recommender Endpoint
-    summary: Daftar akun pengguna
-    parameters:
-      - in: path
-        name: loc_user
-        required: true
-        schema:
-          type: string
-        description: Koordinat lokasi user
-        example: -7.761028,110.378478
-    responses:
-      '200':
-        description: Success
-        content:
-          application/json:
-            example:
-              {
-                "status": "success",
-                "message": "Daftar user berhasil didapatkan",
-                "data": {
-                  "id": "qyO9_BgMqNpb45Y3g1S-o",
-                  "name": "Ahmad Ibrahim",
-                  "email": "a.ibrahim@example.com",
-                  "createdAt": "2023-03-17T11:04:09.588Z",
-                  "updatedAt": "2023-03-17T11:04:09.588Z"
-                }
-              }
       '400':
         description: Bad Request
 components:
