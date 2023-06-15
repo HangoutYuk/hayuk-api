@@ -75,8 +75,7 @@ Below are the cloud architecture diagram used for HangoutYuk
 
 ## API Documentation
 The documentation is included in the backend itself by visiting **/api-docs** when the app is running.
-But we also provided the swagger openAPI-compatible file formatted in YAML [here](https://github.com/HangoutYuk/hayuk-api/blob/main/docs/swagger.api.docs.yaml)
-
+But we also provided the swagger OpenAPI-compatible file formatted in YAML [here](https://raw.githubusercontent.com/HangoutYuk/hayuk-api/dev/docs/swagger.api.docs.yaml), copy the URL then you can use [Swagger Editor](https://editor.swagger.io) and paste the URL to check the API Docs.
 
 ## Cloud Computing Members
 
