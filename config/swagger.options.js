@@ -4,7 +4,7 @@ const options = {
   definition: {
     openapi: '3.0.3',
     info: {
-      title: 'Dokumentasi API HangoutYuk!',
+      title: 'HangoutYuk API - OpenAPI 3.0',
       description: "Dokumentasi lengkap API dari aplikasi HangoutYuk!\n- Login dahulu untuk mendapatkan auth token JWT\n- Salin token dari response yang didapat, masukan pada menu Authorize\n- Endpoint sudah dapat diakses",
       version: '1.0.0'
     },

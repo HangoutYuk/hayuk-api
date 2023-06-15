@@ -12,7 +12,8 @@ const config = {
   mainServer: process.env.MAIN_SERVER,
   devServer: process.env.DEV_SERVER,
   localServer: process.env.LOCAL_SERVER,
-  recAPI: process.env.RECOMMENDER_API
+  recAPI: process.env.RECOMMENDER_API,
+  bucket: process.env.PROFILE_BUCKET
 }
 
 module.exports = config

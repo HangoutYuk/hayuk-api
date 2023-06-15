@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const stream = require('stream')
 const { Storage } = require('@google-cloud/storage')
 const storage = new Storage({ projectId: 'curious-furnace-381420' })
+const config = require('../config/config')
 // list semua user
 const getUser = async (req, res) => {
   try {
@@ -145,7 +146,7 @@ const uploadPhoto = async (req, res) => {
     const fileExtension = originalName.split('.').pop()
     const fileName = `${id}-${new Date().toISOString()}-current.${fileExtension}`
     // upload to GCS
-    const bucketName = process.env.PROFILE_BUCKET
+    const bucketName = config.bucket
     const bucket = storage.bucket(bucketName)
     const file = bucket.file(`${id}/${fileName}`)
     bufferStream.pipe(file.createWriteStream({ resumable: false, public: true }))
