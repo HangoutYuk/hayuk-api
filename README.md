@@ -74,8 +74,10 @@ Below are the cloud architecture diagram used for HangoutYuk
 <img src="https://symbols.getvecta.com/stencil_4/47_google-cloud-storage.fee263d33a.svg" width="50" height="50"/>
 
 ## API Documentation
-The documentation is included in the backend itself by visiting */api-docs* when the app is running.
+The documentation is included in the backend itself by visiting **/api-docs** when the app is running.
 But we also provided the swagger openAPI-compatible file formatted in YAML [here](https://github.com/HangoutYuk/hayuk-api/blob/main/docs/swagger.api.docs.yaml)
+
+
 ## Cloud Computing Members
 
 | Bangkit ID  | Name                      | University                       | Contact                                                                     |

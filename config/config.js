@@ -13,6 +13,7 @@ const config = {
   devServer: process.env.DEV_SERVER,
   localServer: process.env.LOCAL_SERVER,
   recAPI: process.env.RECOMMENDER_API,
+  mlEndpointServer: process.env.ML_SERVER,
   bucket: process.env.PROFILE_BUCKET
 }
 

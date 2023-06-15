@@ -6,6 +6,7 @@ const sequelize = new Sequelize(
   config.db.user,
   config.db.password,
   {
+    // uncomment host if you want to run in it local, for best practice use socket path when deploying to cloud
     // host: config.db.host,
     dialect: 'mysql',
     dialectOptions: {

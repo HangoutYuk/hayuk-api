@@ -5,8 +5,16 @@ const options = {
     openapi: '3.0.3',
     info: {
       title: 'HangoutYuk API - OpenAPI 3.0',
-      description: "Dokumentasi lengkap API dari aplikasi HangoutYuk!\n- Login dahulu untuk mendapatkan auth token JWT\n- Salin token dari response yang didapat, masukan pada menu Authorize\n- Endpoint sudah dapat diakses",
-      version: '1.0.0'
+      description: "Dokumentasi lengkap API dari aplikasi HangoutYuk!\n- Pilih server backend sesuai kebutuhan\n- Login dahulu untuk mendapatkan auth token JWT\n- Salin token dari response yang didapat, masukan pada menu Authorize\n- Endpoint sudah dapat diakses\nKhusus untuk Recommender API ubah server manjadi  ML Recommender Endpoint",
+      version: '1.0.0',
+      "license": {
+        "name": "MIT License",
+        "url": "https://mit-license.org/"
+      }
+    },
+    "externalDocs": {
+      "description": "HangoutYuk Github",
+      "url": "https://github.com/HangoutYuk"
     },
     servers: [
       {
@@ -20,6 +28,10 @@ const options = {
       {
         url: `${config.localServer}`,
         description: 'Local Backend'
+      },
+      {
+        url: `${config.mlEndpointServer}`,
+        description: 'ML Recommender Endpoint'
       }
     ],
     tags: [
@@ -38,6 +50,10 @@ const options = {
       {
         name: 'Poll Website',
         description: 'Endpoint untuk membuat website polling dari tempat yang diinginkan'
+      },
+      {
+        "name": "Recommender Endpoint",
+        "description": "Endpoint untuk mengetes ML Recommender API"
       }
     ],
     components: {

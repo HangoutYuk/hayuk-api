@@ -71,10 +71,36 @@ const poll_list_table = sequelize.define('poll_list_table', {
   }
 })
 
+const poll_data_table = sequelize.define('poll_data_table', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  polling_person_name: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false
+  },
+  agree: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
+  polledAt: {
+    type: DataTypes.DATE,
+    allowNull: false
+  }
+})
+
+// foreign key and one to one relationship
+poll_data_table.belongsTo(poll_list_table, {
+  foreignKey: 'poll_id',
+  targetKey: 'poll_id'
+})
 poll_list_table.belongsTo(User, {
   foreignKey: 'user_id',
   targetKey: 'id'
 })
 
 
-module.exports = { User, poll_list_table }
+module.exports = { User, poll_list_table, poll_data_table }
