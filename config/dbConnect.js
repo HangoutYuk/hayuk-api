@@ -7,11 +7,11 @@ const sequelize = new Sequelize(
   config.db.password,
   {
     // uncomment host if you want to run in it local, for best practice use socket path when deploying to cloud
-    host: config.db.host,
+    // host: config.db.host,
     dialect: 'mysql',
-    // dialectOptions: {
-    //    socketPath: config.db.socket
-    // },
+    dialectOptions: {
+        socketPath: config.db.socket
+    },
     timezone: '+07:00'
   })
 
